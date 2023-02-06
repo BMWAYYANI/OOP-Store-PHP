@@ -18,7 +18,7 @@ $cart = new Cart([
     // Do not use cookie, cart items will gone after browser closed
     'useCookie' => true,
 ]);
-print_r($cart->read());
+
 $Products = new Product([
     // Database Connction 
     'conn' => $db,
@@ -29,7 +29,6 @@ $Products = new Product([
 ]);
 $products = $Products->GetItems();
 
-print_r($_SESSION);
 /* if(isset()) */
 // Empty the cart
 if (isset($_POST['empty'])) {
@@ -98,7 +97,7 @@ if ($page == 'checkout') {
         <div class="row">
             <div class="col-md-14">
                 <div class="table-responsive">
-                    <pre>' . print_r($cart->getItems()) . '</pre>
+                    <pre>' . json_encode($cart->getItems()) . '</pre>
                 </div>
             </div>
         </div>
@@ -165,10 +164,12 @@ if ($page == 'checkout') {
 
 		<p>
 			<div class="pull-left">
-				<button class="btn btn-danger btn-empty-cart">Empty Cart</button>
+            <form action="" method="post">
+				<button type="submit" name="empty" class="btn btn-warning btn-empty-cart">Empty Cart</button>
+                </form>
 			</div>
 			<div class="pull-right text-right">
-				<a href="?page=home" class="btn btn-default">Continue Shopping</a>
+				<a href="?page=home" class="btn btn-info">Continue Shopping</a>
 				<a href="?page=checkout" class="btn btn-danger">Checkout</a>
 			</div>
 		</p>';
@@ -297,7 +298,7 @@ if ($page == 'checkout') {
                     <a class="nav-link" href="?page=cart"><i class="fa fa-shopping-cart"></i> Cart (<?php echo $cart->getTotalItem(); ?>)</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="?page=cheakout">Checkout</a>
+                    <a class="nav-link" href="?page=checkout">Checkout</a>
                 </li>
             </ul>
         </div>
